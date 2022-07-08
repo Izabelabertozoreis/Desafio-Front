@@ -1,17 +1,15 @@
-ocument.getElementById('nome').addEventListener('keyup', gerarLogin);
+document.getElementById('nome').addEventListener('keyup', gerarLogin);
 document.getElementById('sobrenome').addEventListener('keyup', gerarLogin);
 document.getElementById('termostxt').addEventListener('scroll', habilitaCheckAceite);
 
-
-//gera login automaticamente com o nome e sobrenome registrados
-function gerarLogin() {
+function Login() {
     const nome = document.getElementById('nome').value;
     const sobrenome = document.getElementById('sobrenome').value;
     const login = nome.replace(/ /g, '') + "." + sobrenome.replace(/ /g, '');
     document.getElementById('login').value = login.toLowerCase();
 }
 function CheckPassword(senha) {
-    //alert(senha);
+   
     if (/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!$*&@#])[0-9a-zA-Z!$*&@#]{8,}$/.test(senha)) {
         return true;
     }
@@ -23,8 +21,6 @@ function CheckPassword(senha) {
 
 try {
     document.getElementById('cep').addEventListener('focusout', async function (e) {
-        //let data = await fetch('https://viacep.com.br/ws/${cep.value}/json/');
-        // let data = await fetch(`https://viacep.com.br/ws/${cep.value}/json/`);
         let dados = await fetch('https://viacep.com.br/ws/' + cep.value + '/json/');
         let vcep = await dados.json();
 
@@ -42,10 +38,9 @@ try {
     });
 }
 catch (err) {
-    window.alert("Site fora do ar!");
+    window.alert("Indisponivel!");
 }
 
-//Grava os dados registrados - submit
 document.getElementById('formulario').addEventListener('submit', function (form) {
     form.preventDefault();
     console.log('Submetido');
@@ -58,12 +53,10 @@ document.getElementById('formulario').addEventListener('submit', function (form)
 
 function processaDocumento() {
 
-    //obrigatorio a aceitação dos termos para gravar os dados registrados
     document.getElementById('termos').checked = false;
     x = document.getElementsByName('informacao');
     x[0].checked = true;
-
-    //Copiando os valores registrados para a tabela Validação dos Dados Registrados no momento do submit
+   
     document.getElementById('t-nome').innerHTML = document.getElementById('nome').value;
     document.getElementById('t-sobrenome').innerHTML = document.getElementById('sobrenome').value;
     document.getElementById('t-email').innerHTML = document.getElementById('email').value;
@@ -83,21 +76,8 @@ function processaDocumento() {
     document.getElementById('t-termos').innerHTML = document.getElementById('termos').value.replace('on', 'Sim');
     document.getElementById('t-aceite').innerHTML = document.querySelector('input[name=informacao]:checked').value
 
-    //Limpando os dados registrados no momento do submit
-    document.getElementById('nome').value = '';
-    document.getElementById('sobrenome').value = '';
-    document.getElementById('email').value = '';
-    document.getElementById('login').value = '';
-    document.getElementById('senha').value = '';
-    document.getElementById('cep').value = '';
-    document.getElementById('endereco').value = '';
-    document.getElementById('complemento').value = '';
-    document.getElementById('bairro').value = '';
-    document.getElementById('cidade').value = '';
-    document.getElementById('estado').value = '';
-    document.getElementById('github').value = '';
-    document.getElementById('academia').value = '';
-    document.getElementById('professor').value = '';
+    document.getElementById('formulario').reset();
+
 }
 
 
